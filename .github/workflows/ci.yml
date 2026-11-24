@@ -1,0 +1,42 @@
+name: ci
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Pinned to the exact Flutter version the committed golden references
+      # were generated on (Linux). Do not float this version without
+      # regenerating template/test/goldens.
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.50.1'
+          channel: stable
+
+      # Generate a project from the template (the template itself carries
+      # __PROJECT_NAME__ placeholders and is not a runnable package). The
+      # committed golden references ship inside the template and are copied
+      # into the generated project.
+      - run: bash scripts/init-artifact.sh ci_demo
+
+      - run: flutter pub get
+        working-directory: ci_demo
+
+      - run: flutter analyze
+        working-directory: ci_demo
+
+      # Plain `flutter test` compares golden renders against the committed
+      # references: a visual regression fails this job. References were
+      # generated on Linux with Flutter 3.50.1; if GitHub's rasterizer ever
+      # diverges, regenerate them from that environment and commit the new
+      # PNGs deliberately (never blind --update-goldens in CI).
+      - run: flutter test
+        working-directory: ci_demo
+
+      - run: flutter build web --release
+        working-directory: ci_demo
