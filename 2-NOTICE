@@ -1,0 +1,13 @@
+flutter-artifacts-builder
+
+Copyright 2026 Mohammed (moh500600)
+
+This product is an original Flutter/Dart project inspired by the publicly
+available "web-artifacts-builder" skill from the anthropics/skills repository
+(https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder),
+which is licensed under the Apache License, Version 2.0. No code from that
+project is copied here; the workflow concept (init -> develop -> test ->
+bundle -> share) is adapted for Flutter.
+
+This product bundles the Tajawal font family, licensed under the SIL Open
+Font License, Version 1.1 (see template/assets/fonts/OFL.txt).
