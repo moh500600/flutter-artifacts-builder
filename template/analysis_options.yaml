@@ -1,0 +1,14 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    # Treat risky leftovers as errors, not warnings.
+    todo: warning
+    avoid_print: error
+    deprecated_member_use_from_same_package: warning
+
+linter:
+  rules:
+    - prefer_single_quotes
+    - require_trailing_commas
+    - unawaited_futures
